@@ -1,0 +1,27 @@
+numpy>=1.26
+opencv-python-headless>=4.9   # video/image I/O, HOG detector, drawing, heatmap colormap
+Pillow>=10.0
+ultralytics>=8.2               # optional YOLO detection backend (lazy-imported; HOG is the offline default)
+mediapipe==0.10.14; python_version < '3.13'   # pose landmarks (pose_estimation, action_recognition,
+                                               # body_measurement); lazy-imported. Google's real mediapipe
+                                               # ships no wheel for Python >= 3.13 yet -- pinned (not just
+                                               # >=0.10) because an unconstrained resolve on an unsupported
+                                               # interpreter has landed an unrelated PyPI package also named
+                                               # "mediapipe" (v1.0.1, no `mediapipe.solutions`) instead of
+                                               # failing loudly; video_core.pose treats that the same as "not
+                                               # installed" (see MediaPipeUnavailableError below).
+PyYAML>=6.0
+
+# Web app
+Django>=5.2,<5.3
+celery>=5.4
+redis>=5.0             # celery broker/result backend in docker-compose; not required
+                        # for CELERY_TASK_ALWAYS_EAGER dev/test mode
+gunicorn>=22.0
+python-decouple>=3.8   # .env loading for settings.py
+dj-database-url>=2.1    # parses DATABASE_URL when set (Postgres in docker-compose)
+django-widget-tweaks>=1.5   # template form-field styling without a JS build step
+
+# dev / test
+pytest>=8.0
+pytest-django>=4.8
